@@ -1,0 +1,8 @@
+TODO list
+
+* change the name of the project
+* put the project in the github
+* not allow repeat the item in the shopping list
+* search where the product can be found (place)
+	* image for the button
+* show in the list the selected product, place and price of the product

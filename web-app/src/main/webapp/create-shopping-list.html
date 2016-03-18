@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Shopping List</title>
+</head>
+<body>
+	<h3>Create your shopping list</h3>
+	<input id="prod" placeholder="New product"></input>
+    <button id="add">Add</button>
+    <div id="list">
+    </div>
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>    
+	<script>
+        var $prodId = $("#prod"),
+            $list = $("#list"),
+            addNewItem = function(){
+                
+                if($prodId.val()){
+                    
+                    var $price = $("<span class='price'>  $0.00  </span>"),
+	                 	$productName = $("<span class='prodName'>  Product name  </span>"),
+	                 	$place = $("<span class='place'>  Lidl  </span>"),
+                    	$rowDiv = $("<div>")
+	                    	.hide()
+	                        .prependTo($list)
+	                        .append("<span class='itemName'>" + $prodId.val() + "</span>")
+	                        .append($productName)	                        
+	                        .append($place)
+	                        .append($price)
+	                        .append(
+		                        $("<button>P</button>")
+		                        .on("click", function(){
+		                            
+		                        }))
+	                    	.append(
+		                        $("<button>×</button>")
+		                        .on("click", function(){
+		                            $rowDiv.hide(500, function(){ $rowDiv.remove();});
+		                        }));
+		                 
+		                 	
+                    $prodId.val("").focus();
+                   	$rowDiv.show(500);
+                    
+                }
+                
+            },
+            $addButton = $("#add").on("click", addNewItem);
+            
+		$prodId
+			.val("")
+			.focus()
+			.keypress(function(event){
+				var keycode = (event.keyCode ? event.keyCode : event.which);
+				if(keycode === 13){
+					addNewItem();
+				}	
+			});
+		
+	</script>
+</body>
+</html>

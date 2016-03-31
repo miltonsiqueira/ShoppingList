@@ -1,0 +1,110 @@
+#selectProduct {
+  display: none;
+}
+
+
+/*
+centralize div
+*/
+
+
+/*
+.maxWidth{
+    width: 300px;
+}
+*/
+
+.main {
+  width: 100%;
+  text-align: center;
+}
+
+.shoppingListItem,
+.selectProductItem {
+  text-align: left;
+  width: 300px;
+  background-color: #bbd7f2;
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+}
+
+.shoppingListList,
+.selectProductList {
+  margin: 0 auto;
+  margin-top: 10px;
+  width: 300px;
+  text-align: center;
+}
+
+span {
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 15pt;
+  color: #205BA8;
+}
+
+.border {
+  border-radius: 5px;
+  border: solid 1px transparent;
+  margin: 2px
+}
+
+.remove-button {
+  float: right;
+  color: #ff4d4d;
+  vertical-align: top;
+  margin: 1px !important;
+  background-color: transparent;
+  font-weight: bold;
+}
+
+.price-button {
+  vertical-align: top;
+  margin: 1px !important;
+  font-weight: bold;
+}
+
+.item {
+  font-style: italic;
+}
+
+.price {
+  font-size: 17pt;
+  color: #f44545;
+}
+
+.place {
+  font-size: 12pt;
+  color: green;
+}
+
+.product {
+  font-size: 13pt;
+  color: #205BA8;
+}
+
+input {
+  font-size: 15pt;
+}
+
+h2 {
+  margin: auto;
+  margin-bottom: 5px;
+  font-size: 22pt;
+  color: #205BA8;
+}
+
+button {
+  min-width: 24px;
+  min-height: 24px;
+  color: white;
+  border-color: #3156A3;
+  background-color: #3156A3;
+  font-weight: bold;
+  font-family: sans-serif;
+  border: 0px solid #FFF;
+  font-size: 12pt;
+  cursor: pointer;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}

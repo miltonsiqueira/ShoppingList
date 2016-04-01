@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Shopping List</title>
+    <link rel="stylesheet" href="shopping-list.css">
+</head>
+<body>
+    <div class="main">
+        <div id="shoppingList" class="mainDiv maxWidth">
+            <h2>Shopping list</h3>
+            <input id="prod" placeholder="New item"></input>
+            <button id="add">Add</button>
+            <div id="list" class="shoppingListList">
+            </div>
+        </div>
+        <div id="selectProduct" class="mainDiv">
+            <h2>Select the product</h3>
+            <button id="cancelSelection">Return to Shopping List</button>
+            <div id="products" class="selectProductList"></div>
+        </div>
+    </div>
+
+    <script src="jquery.min.js"></script>
+    <script src="shopping-list.js"></script>
+
+</body>
+</html>

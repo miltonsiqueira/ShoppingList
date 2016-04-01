@@ -1,8 +1,6 @@
 TODO list
 
-* not allow repeat the item in the shopping list
-* search where the product can be found (place)
-	* image for the button
-* show in the list the selected product, place and price of the product
+* use jquery lib through maven.
+* create json data file for the data of the products.
+* use a relational data base to access the data.
 * add README
-* add LICENSE

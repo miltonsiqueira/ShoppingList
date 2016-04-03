@@ -1,29 +1,43 @@
-<!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Shopping List</title>
-    <link rel="stylesheet" href="shopping-list.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Shopping List</title>
+  <link rel="stylesheet" href="main.css">
 </head>
+
 <body>
-    <div class="main">
-        <div id="shoppingList" class="mainDiv maxWidth">
-            <h2>Shopping list</h3>
+  <div class="main">
+    <div id="shoppingList" class="mainDiv maxWidth">
+      <h1>Shopping list</h1>
             <input id="prod" placeholder="New item"></input>
             <button id="add">Add</button>
             <div id="list" class="shoppingListList">
             </div>
         </div>
-        <div id="selectProduct" class="mainDiv">
-            <h2>Select the product</h3>
-            <button id="cancelSelection">Return to Shopping List</button>
-            <div id="products" class="selectProductList"></div>
-        </div>
     </div>
+  <script>
 
-    <script src="jquery.min.js"></script>
-    <script src="shopping-list.js"></script>
+    // TODO put the snippet below in the js file
+
+    var search, params, idItem, itemsList;
+
+    if (window.location.search) {
+      search = window.location.search.substring(1);
+      params = JSON.parse('{"' + decodeURIComponent(search)
+        .replace(/"/g, '\\"')
+        .replace(/&/g, '","')
+        .replace(/[+]/g," ")
+        .replace(/=/g, '":"') + '"}');
+      var a = "\"";
+      itemsList = params.itemsList;
+    }
+
+  </script>
+
+  <script src="jquery.min.js"></script>
+  <script src="shopping-list.js"></script>
 
 </body>
 </html>

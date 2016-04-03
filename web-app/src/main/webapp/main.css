@@ -1,18 +1,3 @@
-#selectProduct {
-  display: none;
-}
-
-
-/*
-centralize div
-*/
-
-
-/*
-.maxWidth{
-    width: 300px;
-}
-*/
 
 .main {
   width: 100%;
@@ -55,13 +40,15 @@ span {
   vertical-align: top;
   margin: 1px !important;
   background-color: transparent;
-  font-weight: bold;
 }
 
 .price-button {
   vertical-align: top;
   margin: 1px !important;
-  font-weight: bold;
+}
+
+.select-button {
+  vertical-align: top;
 }
 
 .item {
@@ -87,10 +74,17 @@ input {
   font-size: 15pt;
 }
 
-h2 {
+h1 {
   margin: auto;
   margin-bottom: 5px;
   font-size: 22pt;
+  color: #205BA8;
+}
+
+h2 {
+  margin: auto;
+  margin-bottom: 5px;
+  font-size: 18pt;
   color: #205BA8;
 }
 
@@ -100,7 +94,7 @@ button {
   color: white;
   border-color: #3156A3;
   background-color: #3156A3;
-  font-weight: bold;
+
   font-family: sans-serif;
   border: 0px solid #FFF;
   font-size: 12pt;

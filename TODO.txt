@@ -1,6 +1,0 @@
-TODO list
-
-* use jquery lib through maven.
-* create json data file for the data of the products.
-* use a relational data base to access the data.
-* add README

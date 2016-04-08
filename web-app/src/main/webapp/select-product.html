@@ -1,0 +1,52 @@
+<!--
+  <%@ page language="java" contentType="text/html; charset=UTF-8"
+  pageEncoding="UTF-8"%>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+-->
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Shopping List</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+  <div class="main">
+    <div id="selectProduct" class="mainDiv">
+
+      <form method="get" action="shopping-list.html">
+        <input id="inputReturn" type='hidden' name='itemsList'>
+        <button id="cancelSelection" type="submit">Return to the Shopping List</button>
+      </form>
+
+      <h1>Select the product related to:</h1>
+      <h2 id="itemName"></h2>
+      <div id="products" class="selectProductList"></div>
+    </div>
+  </div>
+
+  <script src="jquery.min.js"></script>
+  <script>
+    // TODO put the snippet below in the js file
+    var search, params, idItem, itemsList;
+
+    if (window.location.search) {
+      search = window.location.search.substring(1);
+      params = JSON.parse('{"' + decodeURIComponent(search)
+        .replace(/"/g, '\\"')
+        .replace(/&/g, '","')
+        .replace(/[+]/g,' ')
+        .replace(/=/g, '":"') + '"}');
+
+      itemName = params.itemName;
+      itemsList = params.itemsList;
+    }
+  </script>
+  <script src="select-product.js"></script>
+
+</body>
+
+</html>

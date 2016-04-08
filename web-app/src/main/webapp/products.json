@@ -1,6 +1,4 @@
-var shoppingList = shoppingList || {};
-
-shoppingList.data = {
+{
   "products": [{
     "name": "Red apples",
     "prices": [
@@ -9,42 +7,59 @@ shoppingList.data = {
         "place": "Lidl"
           }]
       }, {
-    "name": "Cream crackers - Tesco",
+    "name": "Cream crackers",
+    "brand": "Tesco",
+    "weight": 200,
+    "barcode": "5051399878584",
     "prices": [
       {
         "value": 0.26,
         "place": "Tesco"
           }]
       }, {
-    "name": "Organic Oats - Flahavan's",
-    "prices": [
+    "name": "Organic Oats",
+    "brand": "Flahavan's",
+    "weight": 1000,
+    "barcode": "5099801003025","prices": [
       {
         "value": 2.67,
         "place": "Tesco"
           }]
       }, {
-    "name": "Batata Palha Tradicional - Visconti",
+    "name": "Batata Palha Tradicional",
+    "brand": "Visconti",
+    "weith": 140,
+    "barcode": "7891053710113",
     "prices": [
       {
         "value": 2.50,
         "place": "Mercado Brasileiro (near by SEDA)"
           }]
       }, {
-    "name": "Cork Flakes - Tesco",
+    "name": "Corn Flakes",
+    "brand": "Tesco",
+    "weigth": 750,
+    "barcode": "5000436616467",
     "prices": [
       {
         "value": 1.49,
         "place": "Tesco"
           }]
       }, {
-    "name": "Milk dairy free - Koko",
+    "name": "Milk dairy free",
+    "brand": "Koko",
+    "liquid": 1000,
+    "barcode": "5060100600208",
     "prices": [
       {
         "value": 1.99,
         "place": "Holland & Barrett"
           }]
       }, {
-    "name": "Water - Ballygowan",
+    "name": "Water",
+    "brand": "Ballygowan",
+    "liquid": 1000,
+    "barcode": "5099483007588",
     "prices": [
       {
         "value": 1.00,
@@ -58,7 +73,8 @@ shoppingList.data = {
         "place": "Tesco"
           }]
       }, {
-    "name": "Bread Loaf Seed - Wholesome",
+    "name": "Bread Loaf Seed",
+        "brand": "Wholesome",
     "prices": [
       {
         "value": 1.09,

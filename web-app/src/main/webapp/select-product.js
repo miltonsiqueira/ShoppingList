@@ -1,97 +1,111 @@
 // TODO review variable name 'item' is used to define a suggestion in the shopping list, but it's used in some iterators
-/*global jQuery, window, itemName, itemsList, shoppingList */
-(function ($, window, itemName, itemsList, data) {
+/*global jQuery, console, itemName, itemsList */
+(function ($, console, itemName, itemsList) {
   "use strict";
 
-  var
-
-    CURRENCY_SYMBOL = "€",
-
-    formatCurrency = function (number) {
-      return CURRENCY_SYMBOL + number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-
+  var products;
+  $.ajax({
+    url: "products.json",
+    dataType: "json",
+    type: "get",
+    error: function (data) {
+      console.log("Error on getting the products.json");
     },
+    success: function (data) {
+      products = data.products;
 
-    createProductsList = function (itemName) {
-      var getProductsFromItemName = function (itemName) {
+      var
 
-          var regExpItemName = new RegExp(itemName, "i"),
-            products = data.products;
+        CURRENCY_SYMBOL = "€",
 
-          return products.filter(function (item) {
-            return item.name.search(regExpItemName) !== -1;
-          });
+        formatCurrency = function (number) {
+          return CURRENCY_SYMBOL + number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 
         },
-        prods = getProductsFromItemName(itemName),
-        $prods = $("#products"),
-        addRow = function (product) {
-          var $prices = $("<div>"),
-            $row = $("<div class='selectProductItem border'>"),
-            $form = $("<form method='get' action='shopping-list.html'>"),
-            $inputVarItemsList = $("<input type='hidden' name='itemsList'>");
 
-          $row
-            .appendTo($prods)
-            .append($form);
+        createProductsList = function (itemName) {
+          var getProductsFromItemName = function (itemName) {
 
-          $form
-            .append("<div><span name='product'>" + product.name + "</span></div>")
-            .append($prices);
-
-          product.prices.forEach(function (item) {
-            var $selectButton = $("<button type='submit' class='select-button'>Select</button>");
-            $("<div class='row'>")
-              .appendTo($prices)
-              .append("<span class='place' name='place'>" + "@" + item.place + "</span>")
-              .append("<span class='price' name='price'>" + formatCurrency(item.value) + "</span>")
-              .append($selectButton)
-              .append($inputVarItemsList);
+              var regExpItemName = new RegExp(itemName, "i");
 
 
-            $selectButton.on("click", function () {
-
-              var shoppingListItem = itemsList.find(function (shoppingListItem) {
-                return shoppingListItem.name === itemName;
+              return products.filter(function (item) {
+                return item.name.search(regExpItemName) !== -1;
               });
 
-              shoppingListItem.productSelected = {
-                productName: product.name,
-                place: item.place,
-                price: item.value
-              };
+            },
+            prods = getProductsFromItemName(itemName),
+            $prods = $("#products"),
+            addRow = function (product) {
+              var $prices = $("<div>"),
+                $row = $("<div class='selectProductItem border'>"),
+                $form = $("<form method='get' action='shopping-list.html'>"),
+                $inputVarItemsList = $("<input type='hidden' name='itemsList'>");
 
-              $inputVarItemsList.val(JSON.stringify(itemsList));
+              $row
+                .appendTo($prods)
+                .append($form);
 
-            });
+              $form
+                .append("<div><span name='product'>" + product.name + "</span></div>")
+                .append($prices);
 
+              product.prices.forEach(function (item) {
+                var $selectButton = $("<button type='submit' class='select-button'>Select</button>");
+                $("<div class='row'>")
+                  .appendTo($prices)
+                  .append("<span class='place' name='place'>" + "@" + item.place + "</span>")
+                  .append("<span class='price' name='price'>" + formatCurrency(item.value) + "</span>")
+                  .append($selectButton)
+                  .append($inputVarItemsList);
+
+
+                $selectButton.on("click", function () {
+
+                  var shoppingListItem = itemsList.find(function (shoppingListItem) {
+                    return shoppingListItem.name === itemName;
+                  });
+
+                  shoppingListItem.productSelected = {
+                    productName: product.name,
+                    place: item.place,
+                    price: item.value
+                  };
+
+                  $inputVarItemsList.val(JSON.stringify(itemsList));
+
+                });
+
+              });
+            };
+
+          $prods.empty();
+
+          prods.forEach(function (item) {
+            addRow(item);
           });
+
         };
 
-      $prods.empty();
 
-      prods.forEach(function (item) {
-        addRow(item);
-      });
+      if (itemsList) {
+        itemsList = JSON.parse(itemsList);
+      } else {
+        itemsList = [];
+      }
 
-    };
+      if (itemsList) {
 
+        $("#itemName").text(itemName);
+        createProductsList(itemName);
 
-  if (itemsList) {
-    itemsList = JSON.parse(itemsList);
-  } else {
-    itemsList = [];
-  }
+        $("#cancelSelection").on("click", function () {
+          $("#inputReturn").val(JSON.stringify(itemsList));
+        });
 
-  if (itemsList) {
+      }
+    }
 
-    $("#itemName").text(itemName);
-    createProductsList(itemName);
+  });
 
-    $("#cancelSelection").on("click", function () {
-      $("#inputReturn").val(JSON.stringify(itemsList));
-    });
-
-  }
-
-}(jQuery, window, itemName, itemsList, shoppingList.data));
+}(jQuery, console, itemName, itemsList));

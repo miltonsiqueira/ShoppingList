@@ -32,7 +32,7 @@
 
         $itemName = $("<span class='item'>" + item + "</span>");
 
-        $form = $("<form method='get' action='select-product.html'>");
+        $form = $("<form>");
         $inputVarItemsList = $("<input type='hidden' name='itemsList'>");
         $inputVarItemName = $("<input type='hidden' name='itemName' value='" + item + "'>");
 
@@ -46,7 +46,7 @@
           .append($inputVarItemsList)
           .append($inputVarItemName)
           // TODO change this button for a search icon
-          .append($("<button class='price-button' type='submit'>" + CURRENCY_SYMBOL + "</button>")
+          .append($("<button class='price-button' type='submit' formaction='select-product.html' formmethod='get'>" + CURRENCY_SYMBOL + "</button>")
             .on("click", function () {
 
               rebuildItemsListFromItemsAdded();

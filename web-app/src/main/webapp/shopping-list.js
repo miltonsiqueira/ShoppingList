@@ -39,6 +39,13 @@
         $rowDiv = $("<div class='shoppingListItem border'>")
           .hide()
           .prependTo($list)
+          .append($("<button class='remove-button'>x</button>")
+            .on("click", function () {
+              $rowDiv.fadeOut(300, function () {
+                $rowDiv.remove();
+                itemsAdded[item] = null;
+              });
+            }))
           .append($form);
 
         $form
@@ -53,21 +60,14 @@
 
               $inputVarItemsList.val(JSON.stringify(itemsList));
 
-            }))
-          .append($("<button class='remove-button'>x</button>")
-            .on("click", function () {
-              $rowDiv.fadeOut(300, function () {
-                $rowDiv.remove();
-                itemsAdded[item] = null;
-              });
             }));
 
         if (productSelected) {
           $("<div class='productDetails'>")
             .appendTo($form)
             .append("<span class='product'>" + productSelected.productName + "</span>")
-            .append("<span class='place'>" + productSelected.place + "</span>")
-            .append("<span class='price'>" + productSelected.price + "</span>");
+            .append("<span class='place'>@" + productSelected.place + "</span>")
+            .append("<span class='price'>€" + productSelected.price + "</span>");
         }
 
         itemsAdded[item] = {

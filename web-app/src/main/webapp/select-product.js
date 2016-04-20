@@ -3,16 +3,14 @@
 (function ($, console, itemName, itemsList) {
   "use strict";
 
-  var products;
   $.ajax({
-    url: "products.json",
+    url: "api/product?name=" + itemName,
     dataType: "json",
     type: "get",
     error: function (data) {
-      console.log("Error on getting the products.json");
+      console.log("Error on getting the product related to item name");
     },
-    success: function (data) {
-      products = data.products;
+    success: function (prods) {
 
       var
 
@@ -24,18 +22,8 @@
         },
 
         createProductsList = function (itemName) {
-          var getProductsFromItemName = function (itemName) {
-
-              var regExpItemName = new RegExp(itemName, "i");
-
-
-              return products.filter(function (item) {
-                return item.name.search(regExpItemName) !== -1;
-              });
-
-            },
-            prods = getProductsFromItemName(itemName),
-            $prods = $("#products"),
+          
+          var $prods = $("#products"),
             addRow = function (product) {
               var $prices = $("<div>"),
                 $row = $("<div class='selectProductItem border'>"),

@@ -17,26 +17,9 @@
             </div>
         </div>
     </div>
-  <script>
-
-    // TODO put the snippet below in the js file
-
-    var search, params, idItem, itemsList;
-
-    if (window.location.search) {
-      search = window.location.search.substring(1);
-      params = JSON.parse('{"' + decodeURIComponent(search)
-        .replace(/"/g, '\\"')
-        .replace(/&/g, '","')
-        .replace(/[+]/g," ")
-        .replace(/=/g, '":"') + '"}');
-      var a = "\"";
-      itemsList = params.itemsList;
-    }
-
-  </script>
 
   <script src="jquery.min.js"></script>
+  <script src="utils.js"></script>
   <script src="shopping-list.js"></script>
 
 </body>

@@ -18,33 +18,18 @@
     <div id="selectProduct" class="mainDiv">
 
       <form method="get" action="shopping-list.html">
-        <input id="inputReturn" type='hidden' name='itemsList'>
+        <input id="inputCancel" type='hidden' name='shoppingList'>
         <button id="cancelSelection" type="submit">Return to the Shopping List</button>
       </form>
 
       <h1>Select the product related to:</h1>
-      <h2 id="itemName"></h2>
+      <h2 id="shoppingItem"></h2>
       <div id="products" class="selectProductList"></div>
     </div>
   </div>
 
   <script src="jquery.min.js"></script>
-  <script>
-    // TODO put the snippet below in the js file
-    var search, params, idItem, itemsList;
-
-    if (window.location.search) {
-      search = window.location.search.substring(1);
-      params = JSON.parse('{"' + decodeURIComponent(search)
-        .replace(/"/g, '\\"')
-        .replace(/&/g, '","')
-        .replace(/[+]/g,' ')
-        .replace(/=/g, '":"') + '"}');
-
-      itemName = params.itemName;
-      itemsList = params.itemsList;
-    }
-  </script>
+  <script src="utils.js"></script>
   <script src="select-product.js"></script>
 
 </body>

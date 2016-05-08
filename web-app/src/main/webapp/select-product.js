@@ -1,99 +1,105 @@
-// TODO review variable name 'item' is used to define a suggestion in the shopping list, but it's used in some iterators
-/*global jQuery, console, itemName, itemsList */
-(function ($, console, itemName, itemsList) {
+/*global jQuery, window, utils */
+(function ($, document, console, utils) {
   "use strict";
 
-  $.ajax({
-    url: "api/product?name=" + itemName,
-    dataType: "json",
-    type: "get",
-    error: function (data) {
-      console.log("Error on getting the product related to item name");
-    },
-    success: function (prods) {
+  var CURRENCY_SYMBOL = "€",
+    requestParameters = utils.params(),
+    shoppingItem = requestParameters.shoppingItem,
+    shoppingList = requestParameters.shoppingList;
 
-      var
+  function formatCurrency(number) {
+    return CURRENCY_SYMBOL + number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+  }
 
-        CURRENCY_SYMBOL = "€",
+  function updateShoppingListWithTheSelectedPrice(productName, placeName, productValue) {
+    var shoppingListItem = shoppingList.find(function (shoppingListItem) {
+      return shoppingListItem.name === shoppingItem;
+    });
 
-        formatCurrency = function (number) {
-          return CURRENCY_SYMBOL + number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+    shoppingListItem.productSelected = {
+      productName: productName,
+      place: placeName,
+      price: productValue
+    };
+  }
 
-        },
+  function createProductItemElements(product) {
+    var $prices = $("<div>"),
 
-        createProductsList = function (itemName) {
-          
-          var $prods = $("#products"),
-            addRow = function (product) {
-              var $prices = $("<div>"),
-                $row = $("<div class='selectProductItem border'>"),
-                $form = $("<form method='get' action='shopping-list.html'>"),
-                $inputVarItemsList = $("<input type='hidden' name='itemsList'>");
+      // Contains all elements from the ShoppingList
+      $inputVarItemsList = $("<input type='hidden' name='shoppingList'>"),
 
-              $row
-                .appendTo($prods)
-                .append($form);
+      $row = $("<div class='selectProductItem border'>"),
+      $form = $("<form method='get' action='shopping-list.html'>");
 
-              $form
-                .append("<div><span name='product'>" + product.name + "</span></div>")
-                .append($prices);
+    $form
+      .append($inputVarItemsList)
+      .append("<div><span name='product'>" + product.name + "</span></div>")
+      .append($prices)
+      .appendTo($row);
 
-              product.prices.forEach(function (item) {
-                var $selectButton = $("<button type='submit' class='select-button'>Select</button>");
-                $("<div class='row'>")
-                  .appendTo($prices)
-                  .append("<span class='place' name='place'>" + "@" + item.place + "</span>")
-                  .append("<span class='price' name='price'>" + formatCurrency(item.value) + "</span>")
-                  .append($selectButton)
-                  .append($inputVarItemsList);
+    product.prices.forEach(function (item) {
+      var $selectButton = $("<button type='submit' class='select-button'>Select</button>");
+      $("<div>")
+        .appendTo($prices)
+        .append("<span class='place' name='place'>" + "@" + item.place + "</span>")
+        .append("<span class='price' name='price'>" + formatCurrency(item.value) + "</span>")
+        .append($selectButton)
+        .append($inputVarItemsList);
 
+      $selectButton.click(function () {
 
-                $selectButton.on("click", function () {
+        updateShoppingListWithTheSelectedPrice(product.name, item.place, item.value);
 
-                  var shoppingListItem = itemsList.find(function (shoppingListItem) {
-                    return shoppingListItem.name === itemName;
-                  });
+        $inputVarItemsList.val(JSON.stringify(shoppingList));
 
-                  shoppingListItem.productSelected = {
-                    productName: product.name,
-                    place: item.place,
-                    price: item.value
-                  };
+      });
 
-                  $inputVarItemsList.val(JSON.stringify(itemsList));
+    });
 
-                });
+    return $row;
+  }
 
-              });
-            };
+  function createProductList(prods) {
+    var $prods = $("#products")
+      .empty();
 
-          $prods.empty();
+    prods.forEach(function (item) {
+      $prods.append(createProductItemElements(item));
+    });
+  }
 
-          prods.forEach(function (item) {
-            addRow(item);
-          });
+  function loadProductList(prods) {
 
-        };
-
-
-      if (itemsList) {
-        itemsList = JSON.parse(itemsList);
-      } else {
-        itemsList = [];
-      }
-
-      if (itemsList) {
-
-        $("#itemName").text(itemName);
-        createProductsList(itemName);
-
-        $("#cancelSelection").on("click", function () {
-          $("#inputReturn").val(JSON.stringify(itemsList));
-        });
-
-      }
+    if (shoppingList) {
+      shoppingList = JSON.parse(shoppingList);
+    } else {
+      shoppingList = [];
     }
 
+    if (shoppingList) {
+
+      $("#shoppingItem").text(shoppingItem);
+      createProductList(prods);
+
+      $("#cancelSelection").on("click", function () {
+        $("#inputCancel").val(JSON.stringify(shoppingList));
+      });
+
+    }
+  }
+
+
+  $(document).ready(function () {
+    var parameters = {
+      name: shoppingItem
+    };
+    $.getJSON("api/product", parameters)
+      .fail(function (jqxht, textStatus, error) {
+        var err = textStatus + ", " + error;
+        console.error("Request Failed: " + err);
+      })
+      .done(loadProductList);
   });
 
-}(jQuery, console, itemName, itemsList));
+}(jQuery, window.document, window.console, utils));
